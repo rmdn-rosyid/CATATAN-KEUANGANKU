@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f3d3e">
+<title>Catat Uang</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f4f3;--card:#fff;--ink:#12302f;--mute:#6a7f7d;--line:#e0e8e6;--in:#14915e;--inbg:#e2f5ec;--out:#d6404a;--outbg:#fdeaeb;--hero:#0f3d3e;--acc:#f4b942;--wa:#1fb855;--warn:#e69a12;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1716;--card:#132625;--ink:#e6f1ef;--mute:#86a09d;--line:#1f3836;--in:#3ecf8e;--inbg:#123a2e;--out:#ff6b72;--outbg:#3a1d22;--hero:#14595a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1716;--card:#132625;--ink:#e6f1ef;--mute:#86a09d;--line:#1f3836;--in:#3ecf8e;--inbg:#123a2e;--out:#ff6b72;--outbg:#3a1d22;--hero:#14595a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif;line-height:1.45}
+.app{max-width:480px;margin:0 auto;min-height:100dvh;padding:16px 16px 110px}
+button,input,select,textarea{font:inherit;color:inherit}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+h1{margin:0;font-size:20px;font-weight:800;letter-spacing:-.02em}.sub{font-size:12px;color:var(--mute)}
+.ib{border:1px solid var(--line);background:var(--card);border-radius:12px;width:38px;height:38px;cursor:pointer}
+.hero{background:var(--hero);color:#fff;border-radius:26px;padding:22px;margin-bottom:14px}
+.mn{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.mn button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:10px;width:32px;height:32px;cursor:pointer}
+.mn.dk button{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.hero .l{opacity:.7;font-size:13px}.hero .b{font-size:clamp(32px,9vw,42px);font-weight:800;letter-spacing:-.03em;margin:2px 0 14px;word-break:break-word}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pl{border-radius:16px;padding:10px 12px;background:rgba(255,255,255,.12)}.pl small{display:block;opacity:.75;font-size:11px}.pl b{font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px}
+h2{font-size:15px;margin:0 0 10px;font-weight:700}
+.row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}
+.ico{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-size:18px;flex:none;background:var(--bg)}
+.m{flex:1;min-width:0}.m b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.m span{font-size:12px;color:var(--mute)}
+.a{font-weight:700;font-size:14px;white-space:nowrap}.a.in{color:var(--in)}.a.out{color:var(--out)}
+.x{background:none;border:0;color:var(--mute);cursor:pointer;padding:4px}
+.gh{font-size:12px;font-weight:700;color:var(--mute);margin:14px 0 2px}
+.empty{text-align:center;color:var(--mute);font-size:14px;padding:22px 8px}
+.bar{height:8px;border-radius:8px;background:var(--bg);overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;border-radius:8px;background:var(--in)}
+.tip{font-size:13px;margin:0;color:var(--mute)}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px;outline:none}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--in);outline-offset:1px}
+label.t{display:block;font-size:12px;color:var(--mute);margin:10px 0 4px;font-weight:500}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px}.chips button{flex:none;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer}.chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn{width:100%;border:0;border-radius:14px;padding:13px;font-weight:700;cursor:pointer;background:var(--hero);color:#fff;margin-top:10px}.btn.wa{background:var(--wa)}.btn.o{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.bl{display:flex;justify-content:space-between;font-size:13px;align-items:center;gap:10px}.bl input{width:120px;text-align:right;padding:7px 10px}
+.nv{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(480px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));z-index:5}
+.nv button{border:0;background:none;font-size:11px;color:var(--mute);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}.nv button span{font-size:19px}.nv button.on{color:var(--in);font-weight:700}
+.nv .p{width:54px;height:54px;border-radius:50%;background:var(--acc);color:#12302f;font-size:28px;font-weight:700;margin:-26px auto 0;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:8}#ov.on{opacity:1;pointer-events:auto}
+#sh{position:fixed;left:50%;bottom:0;width:min(480px,100%);transform:translate(-50%,105%);background:var(--card);border-radius:24px 24px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));transition:transform .25s;z-index:9;max-height:90dvh;overflow:auto}#sh.on{transform:translate(-50%,0)}
+.sg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border-radius:12px;padding:4px;margin-bottom:6px}.sg button{border:0;background:none;padding:9px;border-radius:9px;font-weight:700;color:var(--mute);cursor:pointer}.sg .on.out{background:var(--out);color:#fff}.sg .on.in{background:var(--in);color:#fff}
+.big{font-size:26px;font-weight:800;text-align:center}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:12;max-width:90%;text-align:center}#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><h1>Catat Uang</h1><div class="sub" id="tgl"></div></div><button class="ib" id="th" aria-label="Ganti tema">🌓</button></header>
+<main id="main"></main>
+</div>
+<nav class="nv">
+<button data-t="home"><span>🏠</span>Beranda</button>
+<button data-t="hist"><span>🧾</span>Riwayat</button>
+<button class="p" id="add" aria-label="Tambah transaksi">+</button>
+<button data-t="bud"><span>🎯</span>Anggaran</button>
+<button data-t="wa"><span>💬</span>WhatsApp</button>
+</nav>
+<div id="ov"></div><div id="sh" role="dialog" aria-label="Tambah transaksi"></div><div id="toast" role="status"></div>
+<script>
+const KAT={out:[["🍜","Makan"],["🚌","Transport"],["🛍️","Belanja"],["🧾","Tagihan"],["🎬","Hiburan"],["💊","Kesehatan"],["📦","Lainnya"]],in:[["💼","Gaji"],["🛒","Usaha"],["🎁","Hadiah"],["📈","Investasi"],["💰","Lainnya"]]};
+const $=id=>document.getElementById(id),mk=d=>{d=new Date(d);return d.getFullYear()*12+d.getMonth()};
+let S={tx:[],hp:"",auto:false,bud:{},goal:{name:"",n:0}},tab="home",cur=mk(Date.now()),q="",fl="all",ty="out";
+try{const r=localStorage.getItem("cu2");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem("cu2",JSON.stringify(S))}catch(e){}};
+const fmt=n=>(n<0?"-":"")+"Rp"+Math.abs(n).toLocaleString("id-ID"),num=v=>parseInt(String(v).replace(/\D/g,""),10)||0;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const same=(a,b)=>new Date(a).toDateString()===new Date(b).toDateString();
+const hari=()=>new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+const mname=k=>new Date(Math.floor(k/12),k%12,1).toLocaleDateString("id-ID",{month:"long",year:"numeric"});
+const ico=(t,k)=>(KAT[t].find(x=>x[1]===k)||["•"])[0];
+const inM=()=>S.tx.filter(x=>mk(x.d)===cur);
+const sum=l=>{let i=0,o=0;l.forEach(x=>x.t==="in"?i+=x.n:o+=x.n);return{i,o,s:i-o}};
+const byCat=l=>Object.entries(l.filter(x=>x.t==="out").reduce((p,x)=>(p[x.k]=(p[x.k]||0)+x.n,p),{})).sort((a,b)=>b[1]-a[1]);
+const spent=(k,m)=>S.tx.filter(x=>x.t==="out"&&x.k===k&&mk(x.d)===m).reduce((p,x)=>p+x.n,0);
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2600)}
+const row=(x,d)=>`<div class="row"><div class="ico">${ico(x.t,x.k)}</div><div class="m"><b>${esc(x.c||x.k)}</b><span>${x.k} · ${new Date(x.d).toLocaleDateString("id-ID",{day:"numeric",month:"short"})}</span></div><div class="a ${x.t}">${x.t==="in"?"+":"-"}${fmt(x.n).replace("-","")}</div>${d?`<button class="x" onclick="del(${x.id})" aria-label="Hapus">✕</button>`:""}</div>`;
+const mnav=c=>`<div class="mn ${c||""}"><button onclick="mv(-1)" aria-label="Bulan lalu">‹</button><b>${mname(cur)}</b><button onclick="mv(1)" aria-label="Bulan depan">›</button></div>`;
+function mv(n){cur+=n;render()}
+
+function vHome(){
+  const m=inM(),a=sum(m),bal=sum(S.tx).s;
+  const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return{d,v:S.tx.filter(x=>x.t==="out"&&same(x.d,d)).reduce((p,x)=>p+x.n,0)}});
+  const mx=Math.max(1,...days.map(x=>x.v));
+  const bars=days.map((x,i)=>{const h=Math.max(3,Math.round(x.v/mx*68));return `<rect x="${i*40+8}" y="${78-h}" width="24" height="${h}" rx="7" fill="${i===6?"var(--acc)":"var(--line)"}"/><text x="${i*40+20}" y="96" text-anchor="middle" font-size="10" fill="var(--mute)">${x.d.toLocaleDateString("id-ID",{weekday:"narrow"})}</text>`}).join("");
+  const rate=a.i>0?Math.round(a.s/a.i*100):null,top=byCat(m).slice(0,3);
+  const tipTxt=rate===null?"Catat pemasukan bulan ini untuk melihat rasio tabunganmu.":rate>=20?`Bagus! Kamu menyisihkan ${rate}% dari pemasukan bulan ini.`:rate>=0?`Kamu menyisihkan ${rate}% dari pemasukan. Targetkan minimal 20%.`:"Pengeluaran melebihi pemasukan bulan ini. Cek kategori terbesar di bawah.";
+  return `<div class="hero">${mnav()}<div class="l">Saldo total</div><div class="b">${fmt(bal)}</div><div class="r2"><div class="pl"><small>Pemasukan</small><b>${fmt(a.i)}</b></div><div class="pl"><small>Pengeluaran</small><b>${fmt(a.o)}</b></div></div></div>
+  <div class="card"><h2>Pengeluaran 7 hari terakhir</h2><svg viewBox="0 0 288 100" width="100%" role="img" aria-label="Grafik pengeluaran 7 hari">${bars}</svg><p class="tip">${tipTxt}</p></div>
+  <div class="card"><h2>Kategori terbesar</h2>${top.length?top.map(([k,v])=>`<div class="bl"><span>${ico("out",k)} ${k}</span><b>${fmt(v)}</b></div><div class="bar"><i style="width:${Math.round(v/a.o*100)}%;background:var(--out)"></i></div>`).join(""):`<div class="empty">Belum ada pengeluaran bulan ini.</div>`}</div>
+  <div class="card"><h2>Transaksi terakhir</h2>${S.tx.slice(0,5).map(x=>row(x)).join("")||`<div class="empty">Tekan tombol + untuk mencatat transaksi pertamamu.</div>`}</div>`}
+
+function hl(){
+  const l=S.tx.filter(x=>(fl==="all"||x.t===fl)&&(!q||(x.c+" "+x.k).toLowerCase().includes(q.toLowerCase())));
+  if(!l.length)return `<div class="empty">Tidak ada transaksi yang cocok.</div>`;
+  let h="",last="";l.forEach(x=>{const g=new Date(x.d).toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long"});if(g!==last){h+=`<div class="gh">${g}</div>`;last=g}h+=row(x,1)});return h}
+function vHist(){return `<input placeholder="Cari catatan atau kategori" value="${esc(q)}" oninput="q=this.value;$('hl').innerHTML=hl()"><div class="chips" style="margin-top:10px">${[["all","Semua"],["in","Pemasukan"],["out","Pengeluaran"]].map(([k,n])=>`<button class="${fl===k?"on":""}" onclick="fl='${k}';render()">${n}</button>`).join("")}</div><div class="card" id="hl">${hl()}</div>`}
+
+function vBud(){
+  const g=S.goal,bal=Math.max(0,sum(S.tx).s),gp=g.n?Math.min(100,Math.round(bal/g.n*100)):0;
+  return `${mnav("dk")}<div class="card"><h2>Anggaran bulanan per kategori</h2>${KAT.out.map(([ic,k])=>{const lim=S.bud[k]||0,sp=spent(k,cur),p=lim?sp/lim:0,c=p>=1?"var(--out)":p>=.8?"var(--warn)":"var(--in)";return `<div style="margin-bottom:12px"><div class="bl"><span>${ic} ${k}</span><input inputmode="numeric" placeholder="Batas Rp" value="${lim?lim.toLocaleString("id-ID"):""}" onchange="setBud('${k}',this.value)" aria-label="Batas ${k}"></div>${lim?`<div class="bar"><i style="width:${Math.min(100,Math.round(p*100))}%;background:${c}"></i></div><span class="tip">${fmt(sp)} terpakai · ${p>=1?"melebihi batas":"sisa "+fmt(lim-sp)}</span>`:""}</div>`}).join("")}</div>
+  <div class="card"><h2>Target tabungan</h2><label class="t">Nama target</label><input value="${esc(g.name)}" placeholder="Contoh: Beli HP baru" onchange="S.goal.name=this.value;save()"><label class="t">Jumlah target (Rp)</label><input inputmode="numeric" value="${g.n?g.n.toLocaleString("id-ID"):""}" placeholder="5.000.000" onchange="S.goal.n=num(this.value);save();render()">${g.n?`<div class="bar" style="margin-top:12px"><i style="width:${gp}%"></i></div><span class="tip">${gp}% tercapai dari saldo (${fmt(bal)} dari ${fmt(g.n)})</span>`:""}</div>`}
+function setBud(k,v){S.bud[k]=num(v);save();render()}
+
+function budLines(){return KAT.out.filter(([,k])=>S.bud[k]).map(([,k])=>{const p=spent(k,cur)/S.bud[k];return `${p>=1?"🔴":p>=.8?"🟡":"🟢"} ${k}: ${fmt(spent(k,cur))} / ${fmt(S.bud[k])} (${Math.round(p*100)}%)`}).join("\n")}
+function rep(p){const d=p==="day",l=d?S.tx.filter(x=>same(x.d,Date.now())):inM(),a=sum(l);
+  let m=`*Laporan ${d?"Harian":"Bulanan"}*\n${d?hari():mname(cur)}\n\n➕ Pemasukan: ${fmt(a.i)}\n➖ Pengeluaran: ${fmt(a.o)}\n💰 Selisih: ${fmt(a.s)}\n`;
+  const t=byCat(l).slice(0,5);if(t.length)m+="\n*Pengeluaran terbesar*\n"+t.map(([k,v])=>`• ${k}: ${fmt(v)}`).join("\n")+"\n";
+  const b=budLines();if(b)m+="\n*Anggaran bulan ini*\n"+b+"\n";
+  if(S.goal.n)m+=`\n🎯 ${S.goal.name||"Target"}: ${Math.min(100,Math.round(Math.max(0,sum(S.tx).s)/S.goal.n*100))}%\n`;
+  return m+`\n*Saldo total: ${fmt(sum(S.tx).s)}*`}
+function wa(t){let no=S.hp.replace(/\D/g,"");if(no.startsWith("0"))no="62"+no.slice(1);else if(no.startsWith("8"))no="62"+no;
+  if(no.length<9){toast("Isi nomor WhatsApp dulu di tab WhatsApp");return}
+  window.open("https://wa.me/"+no+"?text="+encodeURIComponent(t),"_blank")}
+function vWa(){return `<div class="card"><h2>Kirim laporan ke WhatsApp</h2><label class="t">Nomor tujuan (nomor sendiri atau grup keluarga)</label><input inputmode="tel" value="${esc(S.hp)}" placeholder="0812xxxxxxxx" onchange="S.hp=this.value;save()">
+  <label style="display:flex;gap:10px;align-items:center;margin-top:12px;font-size:14px"><input type="checkbox" style="width:18px;height:18px" ${S.auto?"checked":""} onchange="S.auto=this.checked;save()"> Siapkan pesan WA setiap transaksi disimpan</label>
+  <button class="btn wa" onclick="wa(rep('day'))">Kirim laporan hari ini</button><button class="btn wa" onclick="wa(rep('month'))">Kirim laporan bulan ini</button><button class="btn o" onclick="wa('*Status anggaran*\\n'+(budLines()||'Belum ada anggaran.'))">Kirim status anggaran</button></div>
+  <div class="card"><h2>Cadangan data</h2><p class="tip">Salin cadangan lalu simpan di Catatan atau kirim ke dirimu sendiri. Tempel kembali untuk memulihkan.</p><textarea id="bk" rows="3" placeholder="Tempel data cadangan di sini"></textarea><button class="btn o" onclick="cp()">Salin cadangan</button><button class="btn o" onclick="rs()">Pulihkan dari teks</button></div>`}
+function cp(){const t=JSON.stringify(S);$("bk").value=t;try{navigator.clipboard.writeText(t).then(()=>toast("Cadangan disalin"),()=>toast("Salin manual dari kotak teks"))}catch(e){toast("Salin manual dari kotak teks")}}
+function rs(){try{const o=JSON.parse($("bk").value);if(!Array.isArray(o.tx))throw 0;S=Object.assign(S,o);save();render();toast("Data dipulihkan")}catch(e){toast("Format cadangan tidak valid")}}
+
+function openSheet(){const d=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+  $("sh").innerHTML=`<div class="sg"><button id="bo" class="out on" onclick="setTy('out')">Pengeluaran</button><button id="bi" onclick="setTy('in')">Pemasukan</button></div>
+  <input id="sj" class="big" inputmode="numeric" placeholder="Rp0" autocomplete="off" aria-label="Jumlah"><div class="chips">${[10000,20000,50000,100000].map(n=>`<button onclick="addA(${n})">+${n/1000}rb</button>`).join("")}</div>
+  <label class="t">Kategori</label><select id="sk"></select><label class="t">Catatan</label><input id="sc" maxlength="60" placeholder="Contoh: makan siang"><label class="t">Tanggal</label><input id="sd" type="date" value="${d}">
+  <button class="btn" onclick="saveTx()">Simpan transaksi</button>`;
+  $("sj").oninput=e=>{const n=num(e.target.value);e.target.value=n?"Rp"+n.toLocaleString("id-ID"):""};
+  ty="out";fillK();$("ov").classList.add("on");$("sh").classList.add("on")}
+function closeSheet(){$("ov").classList.remove("on");$("sh").classList.remove("on")}
+function fillK(){$("sk").innerHTML=KAT[ty].map(k=>`<option>${k[1]}</option>`).join("")}
+function setTy(t){ty=t;$("bo").className=t==="out"?"out on":"";$("bi").className=t==="in"?"in on":"";fillK()}
+function addA(n){$("sj").value="Rp"+(num($("sj").value)+n).toLocaleString("id-ID")}
+function saveTx(){const n=num($("sj").value);if(!n){toast("Masukkan jumlah uang");return}
+  const x={id:Date.now(),t:ty,n,k:$("sk").value,c:$("sc").value.trim(),d:$("sd").value?new Date($("sd").value+"T12:00:00").getTime():Date.now()};
+  S.tx.push(x);S.tx.sort((a,b)=>b.d-a.d);save();closeSheet();render();
+  let w="";if(x.t==="out"&&S.bud[x.k]){const p=spent(x.k,mk(x.d))/S.bud[x.k];if(p>=1)w=`🔴 Anggaran ${x.k} sudah terlampaui (${Math.round(p*100)}%)`;else if(p>=.8)w=`🟡 Anggaran ${x.k} hampir habis (${Math.round(p*100)}%)`}
+  toast(w||"Transaksi disimpan");
+  if(S.auto)wa(`*Transaksi baru*\n${x.t==="in"?"➕ Pemasukan":"➖ Pengeluaran"}: ${fmt(x.n)}\nKategori: ${x.k}${x.c?"\nCatatan: "+x.c:""}${w?"\n"+w:""}\n\n*Saldo total: ${fmt(sum(S.tx).s)}*`)}
+function del(id){S.tx=S.tx.filter(x=>x.id!==id);save();render();toast("Transaksi dihapus")}
+
+function render(){$("main").innerHTML={home:vHome,hist:vHist,bud:vBud,wa:vWa}[tab]();document.querySelectorAll(".nv button[data-t]").forEach(b=>b.classList.toggle("on",b.dataset.t===tab))}
+document.querySelectorAll(".nv button[data-t]").forEach(b=>b.onclick=()=>{tab=b.dataset.t;render();scrollTo(0,0)});
+$("add").onclick=openSheet;$("ov").onclick=closeSheet;
+$("th").onclick=()=>{const r=document.documentElement,dk=r.dataset.theme==="dark"||(!r.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);r.dataset.theme=dk?"light":"dark"};
+$("tgl").textContent=hari();render();
+</script>
+</body>
+</html>
